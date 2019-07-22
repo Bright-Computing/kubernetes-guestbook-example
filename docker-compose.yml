@@ -2,6 +2,7 @@ version: "3.0"
 services:
   app:
     build: app
+    image: docker.io/brightcomputing/guestbook-frontend:latest
     environment:
       REDIS_SLAVE_REPLICAS: "1"
       REDIS_WRITE_TIMEOUT: "10"
