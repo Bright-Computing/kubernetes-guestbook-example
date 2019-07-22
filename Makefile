@@ -18,4 +18,9 @@ logs_%:
 deploy:
 	kubectl apply -f deploy/
 
-.PHONY: ps down up test deploy
+push:
+	docker-compose build app
+	docker login docker.io
+	docker-compose push app
+
+.PHONY: ps down up test deploy push
