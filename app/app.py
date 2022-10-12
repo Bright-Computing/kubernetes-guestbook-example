@@ -6,12 +6,18 @@ import redis
 
 HTTP_STATUS_OK = 200
 HTTP_STATUS_SERVER_ERROR = 500
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='./static')
+
 slave_replicas = int(os.getenv("REDIS_SLAVE_REPLICAS", 1))
 write_timeout = int(os.getenv("REDIS_WRITE_TIMEOUT", 10)) * 1000
 
 redis_master = redis.Redis(host="redis-master", port=6379, db=0)
 redis_slave = redis.Redis(host="redis-slave", port=6379, db=0)
+
+
+@app.route("/")
+def index():
+    return app.send_static_file("index.html")
 
 
 @app.route("/api/data/<key>")
